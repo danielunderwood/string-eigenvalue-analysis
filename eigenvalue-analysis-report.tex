@@ -1,0 +1,123 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\author{Daniel Underwood}
+\title{Eigenvalue Analysis}
+\begin{document}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\small \color{gray}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+% Parenthesis
+\newcommand{\paren}[1]{\left( #1 \right)} 
+
+\maketitle
+\begin{multicols*}{2}
+\section*{Vibrating String}
+
+Many physical system can be represented as a set of masses on a string. This type of system can easily be modeled by differential equations using Newton's Second Law, resulting in the following system of differential equations:
+
+\begin{equation}
+	m_i \frac{d^2 x_i}{dt^2} = \frac{F}{h} \paren{ x_{i-1} + x_{i+1} -2 x_i}
+	\label{eqn: diffeq}
+\end{equation}
+where $i = 1, ..., n$ for $n$ masses, $F$ is the constant horizontal tension on the string, $h$ is the horizontal separation of each of the masses, and $x_i$ is the vertical displacement for the $i^{\rm{th}}$ mass. In addition to the given values of $i$, \cref{eqn: diffeq} also indicates the displacements $x_0$ and $x_{n+1}$. These terms would represent the masses attached on the outsides of masses $i = 1$ and $i = n+1$. These cannot have a displacement, as they are not masses in the system; therefore $x_0 = x_{n+1} = 0$.
+
+This system of differential equations can be represented by the matrix differential equation
+
+\begin{equation}
+	\frac{d^2 \vec{x}}{dt^2} = -DA \vec{x}
+	\label{eqn: matrixdiffeq}
+\end{equation}
+where $\vec{x}$ is the column vector consisting of the vertical diaplacements, $ \left[ x_1, ..., x_n \right]^T$, and $A$ and $D$ are $n \times n$ matrices defined as
+
+$$
+A :=
+	\begin{bmatrix}
+		2 & -1 &  & & &  \\
+		-1 & 2 & -1 &   & &  \\
+		   & -1 & 2 & -1 \\
+		   & & \ddots & \ddots & \ddots  \\
+		   &  & & -1 & 2
+	\end{bmatrix}
+$$
+
+
+
+$$
+D := \frac{F}{h} 
+	\begin{bmatrix}
+		m_1^{-1} \\
+		& m_2^{-1} \\
+		& & \ddots \\
+		& & & m_n^{-1}
+	\end{bmatrix}
+$$
+
+\Cref{eqn: matrixdiffeq} can easily be solved by assuming a solution of the form
+
+\begin{equation}
+	\vec{x} (t) = e^{\lambda t} \vec{v}
+	\label{eqn: assumedsoln}
+\end{equation}
+
+Differentiating the assumption in \cref{eqn: assumedsoln} results in
+
+\begin{equation}
+	\ddot{\vec{x}} = \lambda^2 e^{\lambda t} \vec{v} = \lambda^2 \vec{x}
+	\label{eqn: differentied solution}
+\end{equation}
+
+Combining \cref{eqn: matrixdiffeq} with the derivative relation in \cref{eqn: differentied solution} results in
+
+\begin{equation}
+	\lambda^2 \vec{x} = -DA \vec{x}
+	\label{eqn: eigenvalue equation 1}
+\end{equation}
+
+\Cref{eqn: eigenvalue equation 1} is the same as
+
+\begin{equation}
+	DA \vec{v} = - \lambda^2 \vec{v}
+	\label{eqn: eigenvalue equation 2}
+\end{equation}
+
+by noticing that the $e^{\lambda t}$ terms cancel and the negative can be moved to $\lambda$ in order to avoid possibly iterating through a matrix and multiplying every element by $-1$.
+
+Solving the eigenvalue in \cref{eqn: eigenvalue equation 2} results in eigenvalues $\mu = -\lambda^2$ of $DA$. Relating this with \crefrange{eqn: differentied solution}{eqn: eigenvalue equation 1} results in fundamental frequencies $\lambda = i \sqrt{\mu}$ with fundamental modes $\vec{v}$ being the eigenvectors of $DA$.
+
+\section*{Superposition Principle with Matrix Differential Equations}
+\end{multicols*}
+\end{document}

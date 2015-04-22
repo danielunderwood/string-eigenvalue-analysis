@@ -1,0 +1,12 @@
+# Matlab stuff
+*.asv
+
+# Latex stuff
+*.aux
+*.log
+*.dvi
+*.out
+*.pdf
+*.fls
+*latexmk
+*.gz
