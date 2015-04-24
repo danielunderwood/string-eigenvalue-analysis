@@ -26,6 +26,9 @@ D = diag(diags);
 % Get eigenvalues and eigenvectors (natrual frequencies) of D * A
 [naturalModes, eigenVals] = eig(D * A);
 
+% Gather naturalModes in case a gpuArray was used
+naturalModes = gather(naturalModes);
+
 % Natural frequencies are square roots of eigenvalues times -i
 naturalFrequencies = -1i * sqrt(eigenVals);
 
@@ -45,7 +48,7 @@ markers = {'--+',':o','-.*','--x',':s','-.d', ...
 
 % Plot eigenmodes with frequencies
 for i=1:size(naturalModes, 2)
-    plot(plotAx, x, naturalModes(:,i), markers{mod(i,numel(markers))}, ...
+    plot(plotAx, x, naturalModes(:,i), markers{mod(i,numel(markers)) + 1}, ...
         'DisplayName', sprintf('Mode %d, Frequency = %f', ...
         i, eigenVals(i,i)), 'Linewidth', 2);
 end
