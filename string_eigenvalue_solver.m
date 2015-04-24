@@ -24,7 +24,7 @@ diags = F ./ (h * masses);
 D = diag(diags);
 
 % Get eigenvalues and eigenvectors (natrual frequencies) of D * A
-[naturalModes, eigenVals] = eigs(D * A);
+[naturalModes, eigenVals] = eig(D * A);
 
 % Natural frequencies are square roots of eigenvalues times -i
 naturalFrequencies = -1i * sqrt(eigenVals);
@@ -55,7 +55,7 @@ xlim(plotAx, [min(x) - 1, max(x) + 1]);
 
 % Show legend
 plotLegend = legend('-DynamicLegend');
-set(plotLegend, 'FontSize', 15);
+set(plotLegend, 'FontSize', 30);
 set(plotLegend, 'Location', 'southoutside');
 
 % Toggle off hold on axes
