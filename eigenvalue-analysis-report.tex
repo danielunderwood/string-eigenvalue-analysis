@@ -14,10 +14,15 @@
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
-
+\usepackage{bm}
 
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
 \definecolor{mylilas}{RGB}{170,55,241}
+
+\newcommand{\crefrangeconjunction}{--}
+\let\oldhat\hat
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\renewcommand{\hat}[1]{\oldhat{\boldsymbol{#1}}}
 
 \author{Daniel Underwood}
 \title{Eigenvalue Analysis}
@@ -39,6 +44,7 @@
     emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
     %emph=[2]{word1,word2}, emphstyle=[2]{style},    
 }
+
 
 % Parenthesis
 \newcommand{\paren}[1]{\left( #1 \right)} 
@@ -119,5 +125,57 @@ by noticing that the $e^{\lambda t}$ terms cancel and the negative can be moved 
 Solving the eigenvalue in \cref{eqn: eigenvalue equation 2} results in eigenvalues $\mu = -\lambda^2$ of $DA$. Relating this with \crefrange{eqn: differentied solution}{eqn: eigenvalue equation 1} results in fundamental frequencies $\lambda = i \sqrt{\mu}$ with fundamental modes $\vec{v}$ being the eigenvectors of $DA$.
 
 \section*{Superposition Principle with Matrix Differential Equations}
+
+The general solution for a linear differential system can be given by
+
+\begin{equation}
+	\vec{x}\paren{t} = \sum\limits_{i=1}^n \gamma_i e^{\lambda_i t} \vec{v}_i
+	\label{eqn: Superposition}
+\end{equation}
+
+\Cref{eqn: Superposition} can be expanded in terms of sines and cosines using the Euler formula, resulting in
+
+\begin{equation}
+	\vec{x}\paren{t} = \sum\limits_{i=1}^n \paren{\alpha_i \cos{\paren{\sqrt{\mu_i} t}} + \beta_i \sin{\paren{\sqrt{\mu_i} t}}} \vec{v}_i
+\end{equation}
+where $\lambda = -i\sqrt{\mu}$ and the coefficients $\alpha_i$ and $\beta_i$ are determinted by initial conditions
+
+\begin{subequations}
+	\begin{align}
+		\vec{x} \paren{0} = \vec{x}_0 \label{eqn: xic} \\
+		\dot{\vec{x}} \paren{0} = \vec{z}_0 \label{eqn: derivative ic}
+	\end{align}
+\end{subequations}
+
+Luckily, cosine and sine are easily evaluated at 0, resulting in the following relations for \crefrange{eqn: xic}{eqn: derivative ic}
+
+\begin{subequations}
+	\begin{align}
+		\vec{x}\paren{0} = \sum\limits_{i=1}^n \alpha_i \vec{v}_i \label{eqn: alphaeq} \\
+		\dot{\vec{x}}\paren{0} = \sum\limits_{i=1}^n \beta_i \sqrt{\mu_i} \vec{v}_i \label{eqn: betaeq}
+	\end{align}
+\end{subequations}
+
+By taking the eigenvectors $\{ \vec{v}_i\}$ to be column vectors in a matrix V, we have
+
+$$
+V := 
+\begin{bmatrix}
+	v_1^1 & v_2^1 & \cdots & v_n^1 \\
+	\vdots & \vdots & & \vdots \\
+	v_1^m & v_2^m & \cdots & v_n^m
+\end{bmatrix}
+$$
+
+i.e., $V_i^j = v_i^j$ where $v_i^j$ is the $j^{\rm{th}}$ component of the $i^{\rm{th}}$ eigenvector or $V := [ \vec{v}_1 ... \vec{v}_n ]$. Taking $\vec{\alpha} = \left[ \alpha_1 \,\,...\,\, \alpha_n \right]^T$ and $\vec{b} = \left[ \beta_1 \sqrt{\mu_1} \,\,...\,\, \beta_n \sqrt{\mu_n} \right]^T$, we are able to rewrite \crefrange{eqn: alphaeq}{eqn: betaeq} as the following matrix equations
+
+\begin{subequations}
+	\begin{align}
+		V \vec{\alpha} = \vec{x}_0 \label{eqn: amat} \\
+		V \vec{b} = \vec{z}_0 \label{eqn: bmat}
+	\end{align}
+\end{subequations}
+
+Using matrix techniques, the solution vectors $\alpha$ and $\vec{b}$ may be obtained. Using the definitions of these solution vectors, we hhave the coefficients $\alpha_i$ as the $i^{\rm{th}}$ component of $\vec{\alpha}$ and $\beta_i = \frac{b_i}{\sqrt{\mu_i}}$.
 \end{multicols*}
 \end{document}
