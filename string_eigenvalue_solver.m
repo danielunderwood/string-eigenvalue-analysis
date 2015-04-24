@@ -28,5 +28,37 @@ D = diag(diags);
 
 % Natural frequencies are square roots of eigenvalues times -i
 naturalFrequencies = -1i * sqrt(eigenVals);
+
+% --- Plotting ---
+% Range of numbers for plotting
+maxVal = h * n;
+x = h:h:maxVal;
+
+% Create new figure
+plotFig = figure;
+plotAx = axes;
+hold(plotAx);
+
+% Markers for plotting
+markers = {'--+',':o','-.*','--x',':s','-.d', ...
+    '--^',':v','-.>','--<',':p','-.h'};
+
+% Plot eigenmodes with frequencies
+for i=1:size(naturalModes, 2)
+    plot(plotAx, x, naturalModes(:,i), markers{mod(i,numel(markers))}, ...
+        'DisplayName', sprintf('Mode %d, Frequency = %f', ...
+        i, eigenVals(i,i)), 'Linewidth', 2);
+end
+
+% Set limits of plot
+xlim(plotAx, [min(x) - 1, max(x) + 1]);
+
+% Show legend
+plotLegend = legend('-DynamicLegend');
+set(plotLegend, 'FontSize', 15);
+set(plotLegend, 'Location', 'southoutside');
+
+% Toggle off hold on axes
+hold(plotAx);
 end
 
