@@ -184,8 +184,10 @@ Using matrix techniques, the solution vectors $\alpha$ and $\vec{b}$ may be obta
 
 
 \section*{Inverse Eigenvalue Problem}
-In addition to the regular eigenvalue problem discussed in the first section, there is also the inverse eigenvalue problem. The general inverse eigenvalue problem is constructing the matrix that will have a desired set of eigenvalues; in the context of the string eigenvalue problem, it is finding the masses that the string should be made out of to have a certain set of frequencies. While the inverse eigenvalue problem is difficult to solve and is an active area of mathematical research, we will explore the idea by analyzing the effect of making a string out of different patterns of masses.
 
+In addition to the regular eigenvalue problem discussed in the first section, there is also the inverse eigenvalue problem. The general inverse eigenvalue problem is constructing the matrix that will have a desired set of eigenvalues; in the context of the string eigenvalue problem, it is finding the masses that the string should be made out of to have a certain set of frequencies. While the inverse eigenvalue problem is difficult to solve and is an active area of mathematical research, we will explore the idea by analyzing the effect of making a string out of different patterns of masses. In addition to examining the configuration of masses on the string, one may examing the effects of the values of $F$ or $h$; however, upon simple experimentation, it is found that they are not very interesting. Changing the values of $h$ leaves the modes the same while reducing or enlarging the entire length of the string due to the length of each segment being changed. This could be useful if one wanted to make a string of a certain length, but is trivial. Changing the value of $F$ leaves the pattern of the modes the same, but scales the frequency by $s^{-1}$ where $s$ is the scaling factor of the force, i.e., $F \to sF$. Having the control over the force is more interesting as it can allow one to tune the frequencies to a certain range, which can also be done by scaling the masses, as will be discussed later and is shown in \cref{fig: constant-mass}.
+
+\pagebreak
 We will first examine placing the same masses across the string.
 
 \begin{figure}[H]	
@@ -238,6 +240,7 @@ We will now look at the effects of using constant masses with either high or low
 \end{figure}
 
 From this exploration of the inverse eigenvalue problem, it seems that frequencies in general are quite arbitrary when the parameters of a system are able to be changed. However, for a given physical system, such as a violin, the modes and frequencies are already determined. Furthermore, in a system such as a violin, the masses on the string would be represented by infinitesimal mass $dm$ with width between the masses $h \to 0$. The system represented here is similar to a set of discrete masses connected by springs with the displacements of the masses $X_i$ representing the distance of the mass from the equilibrium position of the spring. It should also be noted that while there are a given number of natural modes with their respective natural frequencies, superposition of these modes also happens as a system evolves in time.
+
 
 \end{multicols*}
 
